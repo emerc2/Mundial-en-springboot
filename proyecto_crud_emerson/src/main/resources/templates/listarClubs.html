@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listar Clubs</title>
+    <style>
+        /* Estilos de la tabla */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Estilos de los enlaces */
+        a {
+            text-decoration: none;
+            color: #333;
+            padding: 4px 8px;
+            border: 1px solid #333;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Estilos del enlace "Agregar Jugador" */
+        .add-button {
+            display: inline-block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Listado de Clubs</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Jugadores</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="club : ${clubs}">
+                <td th:text="${club.id}"></td>
+                <td th:text="${club.name}"></td>
+                <td>
+                    <ul>
+                        <li th:each="jugador : ${club.jugadores}" th:text="${jugador.name}"></li>
+                    </ul>
+                </td>
+                <td>
+                    <a th:href="@{/clubs/editar/{id}(id=${club.id})}">Editar</a>
+                    <a th:href="@{/clubs/eliminar/{id}(id=${club.id})}">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/clubs/nuevo">Agregar Club</a>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listar Jugadores</title>
+    <style>
+        /* Estilos de la tabla */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Estilos de los enlaces */
+        a {
+            text-decoration: none;
+            color: #333;
+            padding: 4px 8px;
+            border: 1px solid #333;
+            border-radius: 4px;
+        }
+
+        a:hover {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Estilos del enlace "Agregar Jugador" */
+        .add-button {
+            display: inline-block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Listado de Jugadores</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Fecha</th>
+                <th>Club</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="jugador : ${jugadores}">
+                <td th:text="${jugador.id}"></td>
+                <td th:text="${jugador.name}"></td>
+                <td th:text="${#dates.format(jugador.fecha, 'yyyy-MM-dd')}"></td>
+                <td th:text="${jugador.club != null ? jugador.club.name : ''}"></td>
+                <td>
+                    <a th:href="@{/jugadores/editar/{id}(id=${jugador.id})}">Editar</a>
+                    <a th:href="@{/jugadores/eliminar/{id}(id=${jugador.id})}">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/jugadores/nuevo">Agregar Jugador</a>
+</body>
+</html>
+
